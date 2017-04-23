@@ -15,11 +15,11 @@ public class HomePage {
         this.driver = driver;
     }
 
-    public ChoosingFlightPage lookOneWayTicketTo (String ticketTo){
+    public SearchResultsPage lookOneWayTicketTo (String ticketTo){
         driver.findElement(oneWayRButton).click();
         driver.findElement(arrivalInputField).clear();
         driver.findElement(arrivalInputField).sendKeys("Kiev (Borispol) (KBP), Oekraïne");
         driver.findElement(searchButton).click();
-        return new ChoosingFlightPage(driver);
+        return new SearchResultsPage(driver);
     }
 }
