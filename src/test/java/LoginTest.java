@@ -13,15 +13,15 @@ public class LoginTest {
 
     @BeforeMethod
     public void init(){
-        System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "webdrivers\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.vliegtickets.nl/mijn");
     }
 
     @AfterMethod
-    public void finishTest(){
-        driver.close();
+    public void tearDown(){
+        driver.quit();
     }
 
     @Test

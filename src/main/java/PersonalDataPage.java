@@ -5,7 +5,7 @@ import org.openqa.selenium.support.ui.Select;
 /**
  * Created by Paltishko on 24.04.2017.
  */
-public class PersonalDataPage {
+public class PersonalDataPage extends PageObject{
     private WebDriver driver;
     private By manRadioButton = By.id("passengers-Adult-1-geslacht-m");
     private By firstNameField = By.id("passengers-Adult-1-voornaam");
@@ -26,7 +26,8 @@ public class PersonalDataPage {
 
 
     public PersonalDataPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
+//        this.driver = driver;
     }
 
     public void fillPersonalData(){
