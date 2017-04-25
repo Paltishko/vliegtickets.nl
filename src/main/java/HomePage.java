@@ -1,7 +1,9 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -16,7 +18,7 @@ public class HomePage extends PageObject {
     private WebElement oneWayRButton;
     @FindBy(xpath = "//*[@id=\"autocomplete_arrival1\"]")
     private WebElement arrivalInputField;
-    @FindBy(id = "ui-id-23")
+    @FindBy(css = "#ui-id-2")
     private WebElement autocompleteArival;
     @FindBy(id = "search_btn")
     private WebElement searchButton;
@@ -30,9 +32,12 @@ public class HomePage extends PageObject {
 
         oneWayRButton.click();
         arrivalInputField.click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("autocomplete_arrival1")));
         arrivalInputField.sendKeys(ticketTo);
-        WebElement dynamicElement = (new WebDriverWait(driver, 5))
-                .until(ExpectedConditions.visibilityOf(autocompleteArival));
+        element = wait.until(ExpectedConditions.visibilityOf(autocompleteArival));
+
+//        wait.until(ExpectedConditions.attributeContains(autocompleteArival, "style", "block"));
         arrivalInputField.sendKeys(Keys.DOWN);
         arrivalInputField.sendKeys(Keys.ENTER);
         searchButton.click();

@@ -9,5 +9,6 @@ public class PageObject {
     WebDriver driver;
     public PageObject(WebDriver driver) {
         PageFactory.initElements(driver, this);
+        this.driver = driver;
     }
 }
