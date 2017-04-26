@@ -5,6 +5,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,8 +16,8 @@ public class SearchResultsPage extends PageObject {
 
     @FindBy(className = "b-reserv-btn-r")
     private WebElement selectAirFlightButton;
-    @FindBy(css = "div.b-resuls__item_right > h3:nth-child(2) > span > span:nth-child(2)")
-    private List<WebElement> prices;
+    By cheapestPrice = By.cssSelector("div.i-ta_l > h3:nth-child(3) >span> span:nth-child(2)");
+    By prices = By.cssSelector("div.i-ta_l > h3:nth-child(2) >span> span:nth-child(2)");
 
     public SearchResultsPage(WebDriver driver) {
         super(driver);
@@ -27,8 +29,17 @@ public class SearchResultsPage extends PageObject {
     }
 
     public void getPrices() {
-//        WebElement dynamicElement = (new WebDriverWait(driver, 30)).
-//                until(ExpectedConditions.presenceOfElementLocated(By.id("div.b-resuls__item_right > h3:nth-child(2) > span > span:nth-child(2)")));
-        prices.toString();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.b-results>div.new")));
+        List<WebElement> prices = new ArrayList<>();
+        prices.add(driver.findElement(cheapestPrice));
+        prices.addAll(driver.findElements(this.prices));
+        try(PrintWriter out = new PrintWriter( "Logging\\log.txt", "UTF-8")){ //filename to be changed according to current TimeStamp
+            out.println("The two cheapest prices:");
+            out.println(prices.get(0).getText());
+            out.println(prices.get(1).getText());
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 }

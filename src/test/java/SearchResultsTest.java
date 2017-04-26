@@ -37,11 +37,15 @@ public class SearchResultsTest {
         driver.quit();
     }
 
+    /**
+     * This TC look for tickets to Kiev Borispol on tomorrow date
+     * Gets two cheapest prices and saves it to file Log.txt
+     */
     @Test
-    public void getChipestTickets() {
+    public void getCheapestTickets() {
         homePage = new HomePage(driver);
-        searchResultsPage = homePage.lookOneWayTicketTo("Kie");
-        boolean dynamicElement = (new WebDriverWait(driver, 30))
+        searchResultsPage = homePage.lookOneWayTicketTo("Kiev (Borispol) (KBP), Oekraïne");
+        boolean dynamicElement = (new WebDriverWait(driver, 60))
                 .until(ExpectedConditions.urlContains("https://engine.vliegtickets.nl/results"));
         searchResultsPage.getPrices();
     }

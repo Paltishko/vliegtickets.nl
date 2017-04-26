@@ -18,29 +18,22 @@ public class HomePage extends PageObject {
     private WebElement oneWayRButton;
     @FindBy(xpath = "//*[@id=\"autocomplete_arrival1\"]")
     private WebElement arrivalInputField;
-    @FindBy(css = "#ui-id-2")
+    @FindBy(css = "ul.ui-autocomplete > li")
     private WebElement autocompleteArival;
     @FindBy(id = "search_btn")
     private WebElement searchButton;
-
 
     public HomePage(WebDriver driver) {
         super(driver);
     }
 
     public SearchResultsPage lookOneWayTicketTo(String ticketTo) {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
 
         oneWayRButton.click();
         arrivalInputField.click();
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("autocomplete_arrival1")));
-        arrivalInputField.sendKeys(ticketTo);
-        element = wait.until(ExpectedConditions.visibilityOf(autocompleteArival));
-
-//        wait.until(ExpectedConditions.attributeContains(autocompleteArival, "style", "block"));
-        arrivalInputField.sendKeys(Keys.DOWN);
-        arrivalInputField.sendKeys(Keys.ENTER);
-        searchButton.click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("autocomplete_arrival1"))).sendKeys(ticketTo, Keys.ENTER);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("autocomplete_arrival1"))).sendKeys(ticketTo, Keys.ENTER); //this workaround to be fixed
         return new SearchResultsPage(driver);
     }
 }
